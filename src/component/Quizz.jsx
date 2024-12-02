@@ -6,12 +6,15 @@ export default function Quizz() {
   const { state } = useLocation()
   const navigate = useNavigate();
 
-  
+
   const [questions, setQuestions] = useState([])
   const [currentIndex, setCurrentIndex] = useState(1)
   const [goal, setGoal] = useState(0)
   const [error, setError] = useState(false)
   const [userChoice, setUserChoice] = useState('')
+  const [hint, setHint] = useState(3)
+  const [toggle, setToggle] = useState(false)
+
 
   useEffect(() => {
     axios.get(state)
@@ -34,11 +37,12 @@ export default function Quizz() {
   const nextQuestion = () => {
     if (userChoice == questions[currentIndex].answer) {
       setGoal(goal + 1)
-    } 
-    if (currentIndex < questions.length - 1) { 
+    }
+    if (currentIndex < questions.length - 1) {
       setCurrentIndex(currentIndex + 1)
+      setToggle(false)
     } else {
-     finish()
+      finish()
     }
   }
   const finish = () => {
@@ -48,10 +52,17 @@ export default function Quizz() {
       setError(!error)
       return;
     }
-    navigate('/end', { state: { goal } });  
+    navigate('/end', { state: { goal } });
   }
 
-  
+  const hinting = () => {
+    if (hint > 0) {
+      setToggle(true)
+      setHint(hint - 1)
+    } else {
+      console.log('you use all hints!')
+    }
+  }
 
   return (
     <>
@@ -60,16 +71,20 @@ export default function Quizz() {
           {questions.length === 0 ? "Please wait. loading questions ...." :
             <div>
               <h3>QUIZZ</h3>
+              <p>Amount hint: {hint}</p>
               <p>Number of questions: {currentIndex} / {questions.length}</p>
               <p>Category Question:{questions[currentIndex].category}</p>
               {questions[currentIndex].images?.map(item => <img>{item}</img>)}
-              <h2>{questions[currentIndex].question}</h2> 
+              <h2>{questions[currentIndex].question}</h2>
+              <button onClick={hinting}>Hint!</button>
               {questions[currentIndex].options?.map((item, index) =>
                 <button
                   key={index} onClick={(index) => answeared(index)}>{item}</button>
               )}
               <button onClick={nextQuestion}>Next</button>
               <button onClick={finish}>Finish</button>
+              {toggle ? questions[currentIndex].info : ''}
+              {hint < 1 ?  "Sorry you use all hints!" :""}
             </div>
           }
         </div>
