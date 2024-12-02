@@ -3,25 +3,26 @@ import { useNavigate } from 'react-router-dom';
 export default function Home() {
 
     const navigate = useNavigate()
-    const [URL, setURL] = useState('https://eaxeli.com/api/v1/questions/quiz')
+    const [URL, setURL] = useState('https://eaxeli.com/api/v1/questions/quiz?')
     const userChoiseCategory = (e) => {
         if (e.target.value != 'any') {
-            setURL(URL + `?categorySlug=${e.target.value}`)
+            setURL(URL + `categorySlug=${e.target.value}`)
         }
     }
 
     const userChoiseDiff = (e) => {
         if (e.target.value != 'any') {
-            setURL(URL + `?difficulty=${e.target.value}`)
+            setURL(URL + `&difficulty=${e.target.value}`)
         }
     }
 
     const userChoiseType = (e) => {
         if (e.target.value != 'any') {
-            setURL(URL + `?type=${e.target.value}`)
+            setURL(URL + `&type=${e.target.value}`)
         }
     }
     const handleClick = () => {
+        console.log(URL)
         navigate('/quizz', { state: URL })
     }
     return (
