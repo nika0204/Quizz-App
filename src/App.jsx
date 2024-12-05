@@ -1,5 +1,5 @@
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from './component/Home'
 import Quizz from './component/Quizz.jsx'
 import End from './component/End.jsx';
@@ -12,13 +12,13 @@ function App() {
   
   return (
     <>
-      <Router>
+      <BrowserRouter basename='/Quizz-App/'>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/quizz" element={<Quizz />} />
           <Route path="/end" element={<End />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </>
   )
 }
