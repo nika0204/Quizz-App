@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import "../css/Quizz.css"
 
 export default function Quizz() {
   const { state } = useLocation()
@@ -59,36 +60,47 @@ export default function Quizz() {
     if (hint > 0) {
       setToggle(true)
       setHint(hint - 1)
-    } else {
-      console.log('you use all hints!')
     }
   }
 
   return (
     <>
-      {error ? "error please refresh" :
-        <div className="">
-          {questions.length === 0 ? "Please wait. loading questions ...." :
-            <div>
-              <h3>QUIZZ</h3>
-              <p>Amount hint: {hint}</p>
-              <p>Number of questions: {currentIndex} / {questions.length}</p>
-              <p>Category Question:{questions[currentIndex].category}</p>
-              {questions[currentIndex].images?.map(item => <img>{item}</img>)}
-              <h2>{questions[currentIndex].question}</h2>
-              <button onClick={hinting}>Hint!</button>
-              {questions[currentIndex].options?.map((item, index) =>
-                <button
-                  key={index} onClick={(index) => answeared(index)}>{item}</button>
-              )}
-              <button onClick={nextQuestion}>Next</button>
-              <button onClick={finish}>Finish</button>
-              {toggle ? questions[currentIndex].info : ''}
-              {hint < 1 ?  "Sorry you use all hints!" :""}
+      <div className="container">
+        <div className="quizz__wrrap">
+          {error ? "error please refresh" :
+            <div className="quizz__quizz">
+              {questions.length === 0 ? "Please wait. loading questions ...." :
+                <div className='quizz__inner'>
+                  <div className="quizz__additional">
+                    <p>Amount hint: {hint}</p>
+                    <p>Number of questions: {currentIndex} / {questions.length}</p>
+                  </div>
+
+                  {questions[currentIndex].images?.map(item => <img>{item}</img>)}
+                  <h2 className='quizz__question'>{questions[currentIndex].question}</h2>
+                  <p>Category Question:{questions[currentIndex].category}</p>
+                 <div className="quizz__options">
+                 {questions[currentIndex].options?.map((item, index) =>
+                    <button className='quizz__option'
+                      key={index} onClick={(index) => answeared(index)}>{item}</button>
+                  )}
+                 </div>
+                 
+                  <div className="quizz__btn-group">
+                    <button onClick={nextQuestion} className='btn '>Next</button>
+                    <button className='btn' onClick={hinting} >HINT!</button>
+                    <button onClick={finish} className='btn'>Finish</button>
+                  </div>
+                  <p className="quizz__hint">{toggle ? questions[currentIndex].info : ''}</p>
+                  <p className="quizz__message">{hint < 1 ? "Sorry you use all hints!" : ""}</p>
+                </div>
+              }
             </div>
           }
         </div>
-      }
+
+      </div>
+
     </>
   )
 }

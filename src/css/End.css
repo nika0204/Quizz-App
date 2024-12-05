@@ -1,0 +1,17 @@
+.message{
+   font-size: 4rem;
+   text-align: center;
+}
+
+.goals{
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+
+@media (max-width: 450px) {
+    .message{
+        font-size: 3rem;
+     }
+     
+}

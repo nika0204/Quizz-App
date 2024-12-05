@@ -1,0 +1,178 @@
+body {
+  background-color: var(--box-color);
+  color: var(--text-color);
+}
+
+.home__wrrap {
+  display: flex;
+  margin-top: 10rem;
+  gap: clamp(2rem, 1vw, 20rem);
+  /* gap: 20rem; */
+  align-items: center;
+  justify-content: space-around;
+}
+
+.home__title {
+  font-weight: 700;
+  font-size: 3rem;
+  margin-inline-end: 1rem;
+  margin-left: 5rem;
+
+}
+
+.user__choice {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem;
+  max-width: 41rem;
+  gap: 2rem;
+}
+
+
+.user__choice-diff,
+.user__choice-type,
+.user__choice-category {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1rem;
+
+}
+
+.user__choice-label {
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  padding: 0.75rem 0.75rem 0.75rem 1rem;
+  border-radius: 0.5rem;
+  appearance: none;
+  background-image: url("Chevron_down.svg");
+  background-repeat: no-repeat;
+  background-position: right 2rem bottom 1rem;
+  border: none;
+  transition: filter 0.3s ease-in;
+}
+
+
+
+
+
+
+
+
+
+.home__design {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--box-color);
+  height: 300px;
+  width: 300px;
+  margin-right: 2rem;
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 1rem;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.home__design::after,
+.home__design::before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), #ffadad, #ffd6a5, #fdffb6, #caffbf, #9bf6ff, #bdb2ff);
+  z-index: -1;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  animation: 3s spin linear infinite;
+}
+
+.home__design::before {
+  filter: blur(1.5rem);
+  opacity: 0.7;
+}
+
+.home__figure {
+  font-size: 10rem;
+  animation: 4s rotation infinite ease-in;
+}
+
+@keyframes rotation {
+  25% {
+    transform: rotateY(0deg);
+  }
+
+  50% {
+    transform: rotateY(360deg);
+  }
+
+  75% {
+    transform: rotateX(180deg);
+  }
+
+  100% {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+
+  to {
+    --angle: 360deg;
+  }
+}
+
+@media (max-width: 700px) {
+
+  .home__wrrap {
+    margin-top: 2rem;
+  }
+
+  .home__title {
+    font-weight: 700;
+    font-size: 3rem;
+    margin: 2rem 2rem 5rem 2rem;
+    text-align: center;
+  }
+
+  .user__choice {
+    max-width: 25rem;
+  }
+}
+
+
+@media (max-width: 385px) {
+  .home__title {
+    font-weight: 700;
+    font-size: 2rem;
+    margin: 2rem 2rem 5rem 2rem;
+    text-align: center;
+  }
+
+  .user__choice {
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 745px) {
+  .home__wrrap {
+    flex-wrap: wrap;
+  }
+
+  .home__design {
+    margin: 0 2rem 0 1rem;
+    height: 250px;
+    width: 250px;
+    margin: 0 0 2rem 0;
+  }
+}
